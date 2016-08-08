@@ -1,0 +1,199 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Speech to Text
+    link(href='css/watson-bootstrap-style.css', rel='stylesheet')
+    link(href='css/browser-compatibility.css', rel='stylesheet')
+    link(href='css/demo-stt.css', rel='stylesheet')
+    link(rel='stylesheet', href='/css/watson-bootstrap-dark.css')
+    link(rel='stylesheet', href='/css/banner.css')
+    link(rel='stylesheet', href='/css/style.css')
+  body
+    .navbar-wrapper
+      .navbar.navbar-default.navbar-fixed-top(role='navigation')
+        .container
+          .navbar-header
+            a.navbar-brand.no-underline(href='http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/')
+              span.thin-branding IBM
+              |  Watson Developer Cloud
+          .float-right
+            ul.nav.navbar-nav
+              li
+                a.no-underline(href='http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/services-catalog.html') Services
+              li
+                a.no-underline(href='http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/') Docs
+              li
+                a.no-underline(href='http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/gallery.html') App Gallery
+              li
+                a.no-underline(href='https://developer.ibm.com/watson/') Community
+    .header
+      .container
+        .col-lg-2.col-md-2.hidden-xs.hidden-sm
+          img.service-icon(src='images/stt.svg')
+        .col-lg-10.col-md-10.col-xs-12
+          h1 Speech to Text
+          p
+            | The IBM Watson Speech to Text service uses speech recognition capabilities to convert English, Japanese, and Spanish speech into text.
+          p
+            img.glyph(src='images/link.svg')
+            strong Resources:
+            br
+            .resources
+              a(href='http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/apis/#!/speech-to-text') API Overview
+              a(href='http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/speech-to-text/') Documentation
+              a(href='https://github.com/watson-developer-cloud/speech-to-text-nodejs') Fork on Github
+    .container
+      .row
+        .col-lg-12.col-md-12.col-sm-12
+          h2 Transcribe Audio
+          .col-lg-8.col-md-12.col-sm-12
+            p.help-block(style='padding-right: 3em;')
+              | Use your microphone (compatible only with 
+              a(href='https://www.google.com/intl/en/chrome/browser/desktop/') Google Chrome
+              |  and 
+              a(href='https://www.mozilla.org/en-US/firefox/new/') Mozilla Firefox
+              | ), upload pre-recorded audio (WAV containing uncompressed audio or FLAC file formats), drag and drop recorded audio onto the page, or use the audio samples provided. The returned text includes metadata that provides the timestamps for start and end times of individual words, confidence scores behind those words, and alternative hypotheses for phrases.
+          .col-lg-4.col-md-12.col-sm-12
+            .opt-box
+              h6
+                strong Would you like to help make this service better?
+                br
+                br
+                .form-group.opt-box-input
+                  #sessionPermissionsRadioGroup
+                    input(type='radio', name='sessionpermissions', value='true', checked='checked')
+                    | Allow Watson to learn from this session
+                    br
+                    input(type='radio', name='sessionpermissions', value='false')
+                    | Opt out
+        .row
+          .col-lg-4.col-md-6.col-sm-12
+            .dropdown
+              button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='true')
+                span#dropdownMenuDefault.dropdown-text US English broadband model (16KHz) 
+                span.caret
+              ul#dropdownMenuList.dropdown-menu(role='menu', aria-labelledby='dropdownMenu1')
+                  div.form-group.row.buttons-container
+        //PI buttons
+        .row         
+            div.col-lg-4.col-xs-4
+                button.btn.btn-block.clear-btn(type='button') Clear
+            div.col-lg-4.col-lg-push-4.col-xs-4.col-xs-push-4
+                button.btn.btn-block.analysis-btn(type='button') Analyze
+        p
+        //textarea.content(name='text')
+        .row
+          .col-lg-12.col-md-12.col-sm-12
+            .audioParent
+              audio.audio(style='display:none', controls='')
+                | Your browser does not support the audio element.
+        .row
+          nav.navbar.navbar-inverse
+            ul.navbar-text
+              li#recordButton.button-row.nav-inverse-color
+                img#microphoneIcon.icon(src='images/microphone.svg')
+                span.nav-label Record Audio
+              li.file-upload.button-row.nav-inverse-color
+                #fileUploadTarget
+                  img.icon(src='images/upload.svg')
+                  span.nav-label Select File
+              li.play-sample-1.button-row.nav-inverse-color
+                img.icon(src='images/play.svg')
+                span.nav-label Play Sample 1
+              li.play-sample-2.button-row.nav-inverse-color
+                img.icon(src='images/play.svg')
+                span.nav-label Play  Sample 2
+        .row(style='  margin: 0;')
+          .col-lg-12.col-md-12.col-sm-12(style='padding: 0;')
+            .well
+              form.form-horizontal(autocomplete='off')
+                div(role='tabpanel')
+                  ul.nav.nav-tabs(role='tablist')
+                    li.active(role='presentation')
+                      a(href='#home2', aria-controls='home', role='tab', data-toggle='tab') Text
+                    li(role='presentation')
+                      a(href='#profile2', aria-controls='profile', role='tab', data-toggle='tab') JSON
+                  .hr-tab
+                  fieldset
+                    .row.error-row
+                      .col-lg-12
+                        #errorAlert
+                          span#errorMessage
+                          a#errorClose.pull-right(href='#') ×
+                    .row.notification-row
+                      .col-lg-12
+                        #notificationAlert
+                          span#notificationMessage
+                          a#notificationClose.pull-right(href='#') ×
+                    .form-group.row.tabpanel-row
+                      .col-lg-12
+                        .tab-content
+                          #home2.tab-pane.active(role='tabpanel')
+                            //textarea#resultsText(readonly='')
+                            textarea.content.form-control(rows='12', required='true', name='text'
+                            placeholder='Please enter the text to analyze (minimum of 100 words)...')
+                              |#{content}
+                          //#profile2.tab-pane(role='tabpanel')
+                            //textarea#resultsJSON(readonly='')
+        //PI results
+        .row
+            div.col-lg-6.col-md-12.col-xs-12
+               p watson logo and results
+                div.form-group.row.loading.text-center.loading(style='display:none;')
+                  h2 &nbsp;
+                  img(src='images/watson.gif')
+                div.form-group.row.error(style='display: none;')
+                  h2 &nbsp;
+                  div.well
+                    p.errorMsg
+                div.results(style='display: none;')
+                  h2 Your Personality*
+                  div.well
+                    div.summary-div
+                    div.text-right(style='color: gray')
+                      em.small *Compared to most people who participated in our surveys.                            
+        .row
+          .col-md-12
+            .panel.panel-default
+              .panel-heading
+                h3 Audio to Text Metadata
+                span.pull-right.clickable
+                  i.caret-up(style='  margin-top: -1.3em;')
+              .panel-body
+                .table-scroll
+                  table#metadataTable
+                    thead
+                      tr.table-header-row
+                        th WORD
+                        th START TIME(sec)
+                        th END TIME(sec)
+                        th CONFIDENCE
+                    tbody#metadataTableBody
+                .alt-hypothesis
+                  h5 Alternate Hypotheses
+                  hr
+                  .hypotheses
+                    ol
+            .row
+              .col-lg-12.col-md-12.col-sm-12
+                br
+                br
+      input#fileUploadDialog(style='display:none', type='file')
+      script(src='https://code.jquery.com/jquery-1.11.3.min.js')
+      script.
+        window.jQuery || document.write('<script src="js/jquery-1.11.3.min.js"><\\/script>')
+      script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+      script.
+        (typeof $().emulateTransitionEnd == 'function')|| document.write('<script src="js/bootstrap-3.3.5.min.js"><\\/script>')
+      script(src='js/main.js')
+    script(type='text/javascript', src='/js/d3.v2.min.js')
+    script(type='text/javascript', src='/js/demo.js')
+    script(type='text/javascript', src='/js/personality.js')
+    script(type='text/javascript', src='/js/string-utils.js')
+    script(type='text/javascript', src='/js/i18n.js')
+    script(type='text/javascript', src='/js/textsummary.js')
+    script.
+        textSummary.init('json');

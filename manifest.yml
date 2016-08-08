@@ -1,0 +1,14 @@
+---
+declared-services:
+  speech-to-text-service-standard:
+    label: speech_to_text
+    plan: standard
+applications:
+- name: s2t-pi
+  command: node app.js
+  domain: watsontiger.mybluemix.net
+  path: .
+  memory: 256m
+  services:
+  - S2T
+  - PI
